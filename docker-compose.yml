@@ -1,0 +1,22 @@
+# One container: Caddy serving ./site with automatic HTTPS. Certificates live in the caddy_data volume.
+services:
+  web:
+    image: caddy:2.8.4-alpine
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./site:/srv:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: ["no-new-privileges:true"]
+
+volumes:
+  caddy_data: {}
+  caddy_config: {}

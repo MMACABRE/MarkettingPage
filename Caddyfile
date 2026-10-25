@@ -1,0 +1,22 @@
+# klerk marketing site: static files from ./site, served by Caddy with automatic HTTPS (Let's Encrypt).
+# DOMAIN comes from .env (see .env.example). The page loads nothing from other hosts, so the policy below is strict.
+{$DOMAIN} {
+	root * /srv
+	encode zstd gzip
+	file_server
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+		Content-Security-Policy "default-src 'self'; img-src 'self'; font-src 'self'; style-src 'self'; script-src 'self'; form-action 'self' mailto:; base-uri 'none'; object-src 'none'; frame-ancestors 'none'"
+		-Server
+	}
+
+	# Pictures and fonts change rarely; the page itself, its CSS and its script are revalidated on every visit.
+	@assets path /img/* /fonts/* /favicon.* /apple-touch-icon.png
+	header @assets Cache-Control "public, max-age=604800"
+	@pages not path /img/* /fonts/* /favicon.* /apple-touch-icon.png
+	header @pages Cache-Control "no-cache"
+}
