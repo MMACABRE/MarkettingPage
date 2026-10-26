@@ -5,280 +5,213 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <meta name="darkreader-lock">
-<title>klerk · منشی کلینیک شما</title>
-<meta name="description" content="klerk پرونده‌ی بیماران، ویزیت‌ها، صورتحساب، انبار و پیامک یادآوری یک کلینیک خصوصی را روی سرور خصوصی خودش نگه می‌دارد؛ فارسی و با تاریخ شمسی.">
+<title>KLERK | کلرک، منشی کلینیکتون</title>
+<meta name="description" content="کلرک پرونده‌ی بیمارا، نوبت‌ها، صورتحساب، انبار و پیامک یادآوری کلینیک رو یه جا نگه می‌داره؛ فارسی، با تاریخ شمسی، رو سرور خود کلینیک.">
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preload" href="fonts/Vazirmatn-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Estedad-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="site.css">
 <script src="site.js"></script>
 </head>
 <body>
 
 <svg width="0" height="0" class="sprite" aria-hidden="true">
-  <symbol id="mark" viewBox="0 0 64 64"><rect width="64" height="64" rx="15" fill="#376746"/><path d="M19 11h18l10 10v30a3 3 0 0 1-3 3H19a3 3 0 0 1-3-3V14a3 3 0 0 1 3-3z" fill="#fff"/><path d="M37 11v8a2 2 0 0 0 2 2h8" fill="#d4e8cf"/><path d="M28.5 29h6v6h6v6h-6v6h-6v-6h-6v-6h6z" fill="#376746"/></symbol>
+  <!-- The klerk mark: the app's own sidebar tile (leaf corners, outlined cross). Colours come from CSS (.mark). -->
+  <symbol id="mark" viewBox="0 0 64 64"><path class="mark-tile" d="M26 0h32a6 6 0 0 1 6 6v32a26 26 0 0 1-26 26H6a6 6 0 0 1-6-6V26A26 26 0 0 1 26 0z"/><path class="mark-cross" d="M28.5 14.5h7v12h12v7h-12v12h-7v-12h-12v-7h12z" fill="none" stroke-width="3.4" stroke-linejoin="round"/></symbol>
   <symbol id="arrow" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
 </svg>
 
-<!-- 1. Hero: the visitor's own day, read from their clock -->
-<header class="hero" id="top">
-  <div class="hero-text">
-    <a class="logo" href="#top" aria-label="klerk"><svg width="40" height="40" aria-hidden="true"><use href="#mark"/></svg><span>klerk</span></a>
-    <div class="hero-copy">
-      <h1 class="mask"><span class="line"><span>klerk،</span></span><span class="line"><span>منشیِ کلینیکِ شما</span></span></h1>
-      <p class="hero-lead">پرونده‌ی بیماران، ویزیت‌ها، صورتحساب، انبار و پیامک یادآوری؛ همه فارسی، با تاریخ شمسی، روی سرور خصوصی کلینیک خودتان.</p>
-      <a class="btn btn-light" href="#contact">درخواست نمایش</a>
-    </div>
-  </div>
-  <div class="hero-stage">
-    <img class="stage-art art-bloom" src="img/halftone-bloom.webp" width="1600" height="2133" alt="" aria-hidden="true">
-    <a class="hero-link" href="#contact">تماس</a>
-    <section class="frag today" data-ui aria-label="نمونه‌ی ویزیت‌های امروز">
-      <div class="today-head">
-        <div>
-          <h2>ویزیت‌های امروز</h2>
-          <p class="today-date" data-today>سه‌شنبه ۴ آبان ۱۴۰۵</p>
-        </div>
-        <span class="today-clock" data-clock>۰۹:۴۰</span>
-      </div>
-      <ol class="today-list" data-visits>
-        <li data-t="09:00"><span class="v-time">09:00</span><span class="v-who"><b>لیلا کریمی</b><small>تزریق بوتاکس پیشانی</small></span><button type="button" class="v-done" aria-pressed="false"><svg aria-hidden="true"><use href="#check"/></svg><span>انجام شد</span></button></li>
-        <li data-t="10:30"><span class="v-time">10:30</span><span class="v-who"><b>علی حسینی</b><small>پیگیری درمان آکنه</small></span><button type="button" class="v-done" aria-pressed="false"><svg aria-hidden="true"><use href="#check"/></svg><span>انجام شد</span></button></li>
-        <li data-t="12:00"><span class="v-time">12:00</span><span class="v-who"><b>زهرا کاظمی</b><small>مشاوره و نسخه</small></span><button type="button" class="v-done" aria-pressed="false"><svg aria-hidden="true"><use href="#check"/></svg><span>انجام شد</span></button></li>
-        <li data-t="14:00"><span class="v-time">14:00</span><span class="v-who"><b>پریسا رحیمی</b><small>پیلینگ و مراقبت</small></span><button type="button" class="v-done" aria-pressed="false"><svg aria-hidden="true"><use href="#check"/></svg><span>انجام شد</span></button></li>
-        <li data-t="17:30"><span class="v-time">17:30</span><span class="v-who"><b>بهرام یوسفی</b><small>بوتاکس تعریق زیر بغل</small></span><button type="button" class="v-done" aria-pressed="false"><svg aria-hidden="true"><use href="#check"/></svg><span>انجام شد</span></button></li>
-      </ol>
-      <p class="today-read" data-read>تاریخ و ساعت این کارت را رایانه‌ی خود شما گفته است.</p>
-    </section>
-  </div>
+<header class="bar">
+  <a class="logo" href="#top" aria-label="کلرک، بالای صفحه"><svg class="mark" width="36" height="36" aria-hidden="true"><use href="#mark"/></svg><span>کلرک</span><span class="logo-en" dir="ltr">KLERK</span></a>
+  <nav class="bar-nav" aria-label="بخش‌ها">
+    <a href="#features">امکانات</a>
+    <a href="#faq">سؤالا</a>
+  </nav>
+  <a class="btn btn-sm" href="#contact">دمو</a>
 </header>
 
-<main>
+<main id="top">
 
-<!-- 2. One visit, three states -->
-<section class="visit" id="visit" aria-labelledby="visit-h" data-reveal>
-  <h2 id="visit-h" class="sec-h">یک ویزیت، از رزرو تا تسویه</h2>
-  <div class="visit-rows">
-    <p class="state-word">رزرو شد</p>
-    <div class="frag vrow" data-ui>
-      <span class="vr-time">11:10</span>
-      <span class="vr-who"><b>حمید صادقی</b><small><span class="code">P-000006</span> · بوتاکس دور چشم</small></span>
-      <span class="vr-amount">—</span>
-      <span class="chip chip-planned">در برنامه</span>
+<!-- Hero: the promise in two lines beside the mark on the owner's artwork. Calm on purpose: the app itself comes
+     further down, one screen at a time. -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="hero-copy" data-reveal>
+    <h1 id="hero-h"><span>کارای کلینیک رو</span> <span>بسپارید به کلرک.</span></h1>
+    <p class="lead">پرونده، نوبت، صورتحساب، انبار و پیامک؛ همه یه جا، فارسی و با تاریخ شمسی.</p>
+    <div class="actions">
+      <a class="btn" href="#contact">یه دمو می‌خوام</a>
+      <a class="btn btn-ghost" href="#features">اول ببینم چی داره</a>
     </div>
-
-    <p class="state-word" data-state-word>در جریان</p>
-    <div class="frag vrow is-open" data-ui data-live-visit>
-      <span class="vr-time">11:10</span>
-      <span class="vr-who"><b>حمید صادقی</b><small><span class="code">P-000006</span> · بوتاکس دور چشم</small></span>
-      <span class="vr-amount" data-owed>1,290,000 T</span>
-      <span class="chip chip-due" data-chip>مانده 1,290,000 T</span>
-      <span class="vr-actions">
-        <button type="button" class="ui-btn ui-primary" data-pay>ثبت پرداخت</button>
-        <a class="ui-btn" href="#documents">چاپ صورتحساب</a>
-      </span>
-    </div>
-
-    <p class="state-word">تسویه شد</p>
-    <div class="frag vrow" data-ui>
-      <span class="vr-time">11:10</span>
-      <span class="vr-who"><b>حمید صادقی</b><small><span class="code">P-000006</span> · کارت به کارت · حساب بانکی</small></span>
-      <span class="vr-amount">1,290,000 T</span>
-      <span class="chip chip-done">بدون بدهی</span>
-    </div>
+  </div>
+  <div class="hero-stage" aria-hidden="true">
+    <img class="art art-bloom" src="img/halftone-bloom.webp" width="1600" height="2133" alt="">
+    <svg class="mark hero-mark"><use href="#mark"/></svg>
   </div>
 </section>
 
-<!-- 3. Documents: a printed bill the reader configures -->
-<section class="docs" id="documents" aria-labelledby="docs-h">
-  <div class="docs-stage">
-    <img class="stage-art art-checker" src="img/positive-negative.webp" width="1920" height="1080" alt="" aria-hidden="true" loading="lazy">
-    <article class="frag paper" data-ui data-paper aria-label="نمونه‌ی صورتحساب چاپی">
+<!-- What it does: three screens, one line each -->
+<section class="features" id="features" aria-labelledby="features-h">
+  <h2 id="features-h" class="sec-h" data-reveal>هرچی لازم دارید، دمِ دستتونه.</h2>
+
+  <article class="feat" data-reveal>
+    <div class="feat-text">
+      <h3>هر بیمار، یه پرونده‌ی کامل</h3>
+      <p>مشخصات، مدارک، ویزیت‌ها و حساب‌وکتابش؛ همه تو یه صفحه.</p>
+    </div>
+    <figure class="shot crop-profile"><img src="img/profile-light.webp" width="2880" height="4800" alt="پرونده‌ی یک بیمار با مشخصات، مدارک پزشکی و ویزیت‌ها" loading="lazy"></figure>
+  </article>
+
+  <article class="feat feat-flip" data-reveal>
+    <div class="feat-text">
+      <h3>انبار حواسش به همه‌چی هست</h3>
+      <p>هرچی مصرف بشه خودش کم می‌شه؛ اولم از اونی که زودتر تاریخش می‌گذره.</p>
+    </div>
+    <figure class="shot crop-storage"><img src="img/storage-light.webp" width="2880" height="1800" alt="صفحه‌ی انبار با موجودی و تاریخ انقضای هر کالا" loading="lazy"></figure>
+  </article>
+
+  <article class="feat" data-reveal>
+    <div class="feat-text">
+      <h3>آخر روز، یه گزارش مرتب</h3>
+      <p>همه‌ی ویزیت‌ها و پرداختای امروز، آماده‌ی چاپ.</p>
+    </div>
+    <figure class="shot crop-report"><img src="img/report-light.webp" width="2000" height="2600" alt="گزارش کامل روزانه‌ی ویزیت‌ها، آماده‌ی چاپ" loading="lazy"></figure>
+  </article>
+</section>
+
+<!-- The live thing: a printed bill that changes while you type. Controls sit right under the paper, so on a phone
+     both stay on one screen. -->
+<section class="bill" id="bill" aria-labelledby="bill-h">
+  <div class="bill-copy" data-reveal>
+    <h2 id="bill-h" class="sec-h">صورتحساب، با اسم کلینیک خودتون</h2>
+    <p>اسمتونو بنویسید، مقدار و تخفیف و اندازه‌ی کاغذ رو عوض کنید؛ همون لحظه رو برگه می‌بینید.</p>
+  </div>
+  <div class="bench">
+    <div class="slot">
+    <article class="frag paper" data-ui data-paper aria-label="نمونه‌ی صورتحساب چاپی" aria-live="polite">
       <header class="p-head">
-        <svg width="26" height="26" aria-hidden="true"><use href="#mark"/></svg>
-        <div><b data-out-name>KLERK | کلرک</b><small>صورتحساب ویزیت · ۳ آبان ۱۴۰۵</small></div>
+        <svg class="mark p-mark" aria-hidden="true"><use href="#mark"/></svg>
+        <div><b data-out-name>KLERK | کلرک</b><small>صورتحساب ویزیت، ۴ آبان ۱۴۰۵</small></div>
       </header>
       <p class="p-patient">لیلا کریمی <span class="code">P-000000</span></p>
       <table class="p-table">
         <thead><tr><th>شرح</th><th>تعداد</th><th>مبلغ</th></tr></thead>
         <tbody>
-          <tr><td>ویزیت تخصصی</td><td>۱</td><td class="m" data-m="900000">90,000 T</td></tr>
-          <tr class="p-item"><td>بوتاکس دیسپورت <span class="p-kind">کالا</span></td><td data-out-qty>۰٫۵</td><td class="m" data-out-item>400,000 T</td></tr>
-          <tr data-out-disc-row hidden><td colspan="2">تخفیف کل صورتحساب</td><td class="m neg" data-out-disc>0 T</td></tr>
+          <tr><td>ویزیت تخصصی</td><td>۱</td><td class="m" data-m-visit>90,000 T</td></tr>
+          <tr><td>بوتاکس دیسپورت</td><td data-out-qty>۰٫۵</td><td class="m" data-m-item>400,000 T</td></tr>
+          <tr data-out-disc-row hidden><td colspan="2">تخفیف</td><td class="m" data-m-disc>0 T</td></tr>
         </tbody>
-        <tfoot><tr><td colspan="2">قابل پرداخت</td><td class="m" data-out-total>490,000 T</td></tr></tfoot>
+        <tfoot><tr><td colspan="2">قابل پرداخت</td><td class="m" data-m-total>490,000 T</td></tr></tfoot>
       </table>
-      <p class="p-foot" data-out-size>A4 · چاپ یا ذخیره به PDF از مرورگر</p>
+      <p class="p-foot"><span data-out-size>A4</span><span class="p-brand" dir="ltr">KLERK</span></p>
     </article>
-  </div>
-  <div class="docs-col">
-    <h2 id="docs-h" class="sec-h">هر برگه، به نام کلینیک شما</h2>
-
-    <div class="cap" data-reveal>
-      <h3>نام کلینیک را خودتان می‌نویسید.</h3>
-      <p>همان نام روی برگه‌ی مرورگر، صفحه‌ی ورود کارکنان و سربرگ همه‌ی فرم‌های چاپی می‌آید.</p>
-      <label class="ctl-label" for="c-name">نام کلینیک</label>
-      <input class="ctl-input" id="c-name" type="text" value="KLERK | کلرک" maxlength="40" data-in-name>
     </div>
-
-    <div class="cap" data-reveal>
-      <h3>تومان یا ریال، با یک انتخاب.</h3>
-      <p>مبلغ‌ها همیشه به ریالِ کامل ذخیره می‌شوند و کلینیک انتخاب می‌کند همه‌جا به چه واحدی دیده شوند. هنگام نوشتن، رقم‌ها خودشان سه‌تا‌سه‌تا جدا می‌شوند.</p>
-      <div class="seg" role="radiogroup" aria-label="واحد پول">
-        <label><input type="radio" name="cur" value="T" checked data-in-cur><span>تومان</span></label>
-        <label><input type="radio" name="cur" value="R" data-in-cur><span>ریال</span></label>
-      </div>
-    </div>
-
-    <div class="cap" data-reveal>
-      <h3>کالا تا دو رقم اعشار.</h3>
-      <p>نیم ویال بوتاکس یا یک‌ونیم سرنگ فیلر: مبلغ درست حساب می‌شود و همان مقدار از انبار کم می‌شود، اول از دسته‌ای که زودتر منقضی می‌شود.</p>
-      <label class="ctl-label" for="c-qty">مقدار بوتاکس: <output for="c-qty" data-qty-read>۰٫۵</output></label>
-      <input class="ctl-range" id="c-qty" type="range" min="0.5" max="3" step="0.5" value="0.5" data-in-qty>
-    </div>
-
-    <div class="cap" data-reveal>
-      <h3>تخفیف روی ردیف یا کل صورتحساب.</h3>
-      <p>قیمت هر ردیف در لحظه‌ی ثبت ثابت می‌ماند؛ تغییر نرخ‌نامه، صورتحساب‌های قبلی را عوض نمی‌کند.</p>
-      <div class="seg" role="radiogroup" aria-label="تخفیف کل صورتحساب">
-        <label><input type="radio" name="disc" value="0" checked data-in-disc><span>بدون تخفیف</span></label>
-        <label><input type="radio" name="disc" value="10" data-in-disc><span>۱۰٪</span></label>
-        <label><input type="radio" name="disc" value="20" data-in-disc><span>۲۰٪</span></label>
-      </div>
-    </div>
-
-    <div class="cap" data-reveal>
-      <h3>هشت فرم آماده‌ی چاپ.</h3>
-      <p>صورتحساب، پرونده‌ی بیمار، فهرست ویزیت‌های روز، گزارش کامل روزانه، گزارش مالی روزانه و سه گزارش انبار؛ روی A4 یا A5، یا ذخیره به PDF.</p>
-      <div class="seg" role="radiogroup" aria-label="اندازه‌ی کاغذ">
-        <label><input type="radio" name="size" value="a4" checked data-in-size><span>A4</span></label>
-        <label><input type="radio" name="size" value="a5" data-in-size><span>A5</span></label>
-      </div>
+    <div class="controls">
+      <label class="ctl ctl-name"><span>اسم کلینیک</span><input type="text" value="KLERK | کلرک" maxlength="32" data-in-name></label>
+      <fieldset class="ctl">
+        <legend>واحد</legend>
+        <div class="seg">
+          <label><input type="radio" name="cur" value="T" checked data-in-cur><span>تومان</span></label>
+          <label><input type="radio" name="cur" value="R" data-in-cur><span>ریال</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="ctl">
+        <legend>تخفیف</legend>
+        <div class="seg">
+          <label><input type="radio" name="disc" value="0" checked data-in-disc><span>هیچی</span></label>
+          <label><input type="radio" name="disc" value="10" data-in-disc><span>۱۰٪</span></label>
+          <label><input type="radio" name="disc" value="20" data-in-disc><span>۲۰٪</span></label>
+        </div>
+      </fieldset>
+      <fieldset class="ctl">
+        <legend>کاغذ</legend>
+        <div class="seg">
+          <label><input type="radio" name="size" value="a4" checked data-in-size><span>A4</span></label>
+          <label><input type="radio" name="size" value="a5" data-in-size><span>A5</span></label>
+        </div>
+      </fieldset>
+      <label class="ctl ctl-qty"><span>بوتاکس: <output data-qty-read>۰٫۵</output> ویال</span><input type="range" min="0.5" max="3" step="0.5" value="0.5" data-in-qty></label>
     </div>
   </div>
 </section>
 
-<!-- 4. A clinic day, by the clock -->
-<section class="day" id="day" aria-labelledby="day-h">
-  <div class="field f1" data-reveal>
-    <h2 id="day-h">یک روز کلینیک</h2>
-    <div class="frag dcard" data-ui><b>امروز، ۳ آبان</b><span>۱۴ ویزیت در برنامه</span><span class="bar"><i class="p-0"></i></span></div>
-    <p class="clause"><span class="hour">ساعت ۸</span> روز روی داشبورد است.</p>
+<!-- Light or dark: the real dashboard in either theme. The choice wipes the dark screen across the light one and
+     darkens the whole section with it. Works without the script (CSS :has on the checked radio). -->
+<section class="modes" id="modes" aria-labelledby="modes-h">
+  <div class="modes-copy" data-reveal>
+    <h2 id="modes-h" class="sec-h">روشن یا تیره، هر جور راحتید.</h2>
+    <p>هر کسی حالت خودشو انتخاب می‌کنه؛ آخر شب هم چشم خسته نمی‌شه.</p>
+    <div class="seg seg-modes" role="radiogroup" aria-label="حالت نمایش">
+      <label><input type="radio" name="mode" value="light" checked><span>روشن</span></label>
+      <label><input type="radio" name="mode" value="dark"><span>تیره</span></label>
+    </div>
   </div>
-  <div class="field f2" data-reveal>
-    <div class="frag dcard" data-ui><b>امروز، ۳ آبان</b><span>۸ ویزیت انجام شد · ۴۸٬۲۰۰٬۰۰۰ تومان دریافتی</span><span class="bar"><i class="p-57"></i></span></div>
-    <p class="clause"><span class="hour">ظهر</span> صورتحساب‌ها خودشان جمع می‌شوند.</p>
-  </div>
-  <div class="field f3" data-reveal>
-    <div class="frag dcard" data-ui><b>یادآوری فردا</b><span>۱۱ پیامک به بیمارانِ ۴ آبان فرستاده شد</span><span class="bar"><i class="p-100"></i></span></div>
-    <p class="clause"><span class="hour">ساعت ۵</span> پیامکِ نوبتِ فردا می‌رود.</p>
-  </div>
-  <div class="field f4" data-reveal>
-    <div class="frag dcard" data-ui><b>پشتیبان شبانه</b><span>نسخه‌ی کامل پایگاه داده ذخیره شد</span><span class="bar"><i class="p-100"></i></span></div>
-    <p class="clause"><span class="hour">ساعت ۳ بامداد</span> پشتیبان گرفته می‌شود.</p>
+  <figure class="modes-shot" data-reveal>
+    <img class="m-light" src="img/dashboard-light.webp" width="2880" height="1800" alt="داشبورد کلرک در حالت روشن: ساعت، تاریخ شمسی و دسترسی سریع به کارها" loading="lazy">
+    <img class="m-dark" src="img/dashboard-dark.webp" width="2880" height="1800" alt="داشبورد کلرک در حالت تیره" loading="lazy">
+  </figure>
+</section>
+
+<!-- Peace of mind: three facts on the owner's tile pattern -->
+<section class="calm" aria-labelledby="calm-h">
+  <img class="art art-checker" src="img/positive-negative.webp" width="1920" height="1080" alt="" aria-hidden="true" loading="lazy">
+  <div class="calm-inner">
+    <h2 id="calm-h" class="sec-h" data-reveal>خیالتون راحت باشه.</h2>
+    <ul class="facts" data-reveal>
+      <li><b>ساعت ۳ شب</b><span>هر شب خودش از همه‌چی پشتیبان می‌گیره.</span></li>
+      <li><b>یه روز قبلش</b><span>پیامک یادآوری نوبت برای بیمار می‌ره.</span></li>
+      <li><b>فقط پیش خودتون</b><span>اطلاعات بیمارا رو سرور خود کلینیکه، نه هیچ جای دیگه.</span></li>
+    </ul>
   </div>
 </section>
 
-<!-- 5. The real program, screen by screen -->
-<section class="screens" id="screens" aria-labelledby="screens-h">
-  <h2 id="screens-h" class="sec-h">خودِ برنامه، همان‌طور که هست</h2>
-
-  <div class="srow" data-reveal>
-    <div class="stext">
-      <h3>روشن یا تیره، به سلیقه‌ی هر کارمند.</h3>
-      <p>داشبورد اول صبح: ساعت، تاریخ شمسی و دسترسی سریع به هر کار. هر کس حالت روشن یا تیره‌ی خودش را انتخاب می‌کند.</p>
-      <div class="seg" role="radiogroup" aria-label="حالت نمایش">
-        <label><input type="radio" name="theme" value="light" checked data-in-theme><span>روشن</span></label>
-        <label><input type="radio" name="theme" value="dark" data-in-theme><span>تیره</span></label>
-      </div>
-    </div>
-    <figure class="shot shot-wide" data-theme-shot>
-      <img class="drift" src="img/dashboard-light.webp" width="2880" height="1800" alt="داشبورد klerk در حالت روشن، با ساعت، تاریخ شمسی و کارت‌های دسترسی سریع" loading="lazy">
-      <img class="drift is-dark" src="img/dashboard-dark.webp" width="2880" height="1800" alt="داشبورد klerk در حالت تیره" loading="lazy">
-    </figure>
+<!-- Phones -->
+<section class="phones" aria-labelledby="phones-h">
+  <div class="phones-copy" data-reveal>
+    <h2 id="phones-h" class="sec-h">رو گوشی هم راحته.</h2>
+    <p>نصب نمی‌خواد. تو مرورگر باز می‌شه و دکمه‌هاش اندازه‌ی انگشته.</p>
   </div>
-
-  <div class="srow srow-phones" data-reveal>
-    <div class="stext">
-      <h3>روی گوشی، همان پرونده.</h3>
-      <p>زیر ۹۰۰ پیکسل، منو به نوار پایین صفحه می‌رود و دکمه‌ها اندازه‌ی انگشت‌اند؛ پرونده، مدارک و ویزیت‌ها همان‌اند.</p>
-    </div>
-    <div class="phones">
-      <figure class="shot shot-phone"><img src="img/phone-dashboard.webp" width="780" height="1688" alt="داشبورد klerk روی گوشی" loading="lazy"></figure>
-      <figure class="shot shot-phone"><img src="img/phone-profile-dark.webp" width="780" height="1688" alt="پرونده‌ی یک بیمار روی گوشی، حالت تیره" loading="lazy"></figure>
-    </div>
-  </div>
-
-  <div class="srow" data-reveal>
-    <div class="stext">
-      <h3>انبار با دسته و تاریخ انقضا.</h3>
-      <p>موجودی هر کالا، نزدیک‌ترین انقضا و هشدار کالای رو به اتمام؛ مصرف هر ویزیت خودکار از انبار کم می‌شود و موجودی هرگز منفی نمی‌شود.</p>
-    </div>
-    <figure class="shot shot-crop crop-storage"><img src="img/storage-light.webp" width="2880" height="1800" alt="صفحه‌ی انبار با موجودی و وضعیت هر کالا" loading="lazy"></figure>
-  </div>
-
-  <div class="srow" data-reveal>
-    <div class="stext">
-      <h3>گزارش آخر روز، روی کاغذ کم.</h3>
-      <p>هر ویزیت با علت مراجعه، خدمات و کالاها و پرداخت‌ها با روش و حساب؛ در پایان جمع هر حساب. یک روز شلوغ روی دو برگ A4.</p>
-    </div>
-    <figure class="shot shot-crop crop-report"><img src="img/report-light.webp" width="2000" height="2600" alt="گزارش کامل روزانه‌ی ویزیت‌ها، آماده‌ی چاپ" loading="lazy"></figure>
-  </div>
-
-  <div class="srow" data-reveal>
-    <div class="stext">
-      <h3>پرونده، مدارک و سابقه در یک صفحه.</h3>
-      <p>کد پرونده، اطلاعات شخصی و پزشکی، گالری مدارک (PDF، عکس و DICOM تا ۳۰ مگابایت) و سابقه‌ی درمان و مالی هر بیمار.</p>
-    </div>
-    <figure class="shot shot-crop crop-profile"><img src="img/profile-light.webp" width="2880" height="4800" alt="پرونده‌ی بیمار با اطلاعات، مدارک پزشکی و ویزیت‌ها" loading="lazy"></figure>
+  <div class="phones-row" data-reveal>
+    <figure class="shot shot-phone"><img src="img/phone-dashboard.webp" width="780" height="1688" alt="داشبورد کلرک روی گوشی" loading="lazy"></figure>
+    <figure class="shot shot-phone"><img src="img/phone-profile-dark.webp" width="780" height="1688" alt="پرونده‌ی یک بیمار روی گوشی، حالت تیره" loading="lazy"></figure>
   </div>
 </section>
 
-<!-- 6. Questions -->
+<!-- Questions -->
 <section class="faq" id="faq" aria-labelledby="faq-h">
-  <h2 id="faq-h" class="faq-h">پرسش‌های رایج</h2>
-  <div class="faq-list">
-    <details name="faq" data-reveal open><summary>اطلاعات بیماران کجا نگه داشته می‌شود؟</summary><p>روی سرور خصوصی همان کلینیک، نه یک سرور مشترک. هر کلینیک نسخه‌ی جدای خودش را دارد و اتصال همیشه با HTTPS است. پوشه‌ی هر بیمار با کد پرونده‌اش، مثل P-000123، روی همان سرور است.</p></details>
-    <details name="faq" data-reveal><summary>ورود کارکنان چقدر امن است؟</summary><p>فقط با نام کاربری و رمز دست‌کم ۱۰ حرفی. بعد از ۵ تلاش ناموفق، ورود ۱۵ دقیقه قفل می‌شود و نشست بعد از ۳۰ دقیقه بی‌کاری بسته می‌شود. ساخت، ویرایش، حذف، بارگذاری، دانلود و ورود، همه در گزارش فعالیت ثبت می‌شوند.</p></details>
-    <details name="faq" data-reveal><summary>هر کارمند چه چیزی را می‌بیند؟</summary><p>برای هر کاربر جدا تعیین می‌کنید: بیماران، مدارک، ویزیت‌ها، انبار و امور مالی هرکدام «بدون دسترسی»، «مشاهده» یا «ویرایش». کارهای حساس مثل حذف بیمار یا خروجی کامل، اجازه‌ی جدا دارند. دو الگوی آماده هم هست: «مدیر» و «کارمند».</p></details>
-    <details name="faq" data-reveal><summary>روی گوشی و تبلت هم کار می‌کند؟</summary><p>بله، در مرورگر و بدون نصب برنامه. در صفحه‌های کوچک منو به پایین صفحه می‌رود و همه‌ی دکمه‌ها برای لمس بزرگ‌اند.</p></details>
-    <details name="faq" data-reveal><summary>پیامک یادآوری چطور فرستاده می‌شود؟</summary><p>با حساب ایران‌پیامکِ خود کلینیک. متن یادآوری را خودتان می‌نویسید و klerk یک روز پیش از نوبت، سر ساعتی که تعیین کرده‌اید، برای بیمار می‌فرستد. تا کلید پنل را وارد و روشنش نکنید، هیچ پیامکی نمی‌رود.</p></details>
-    <details name="faq" data-reveal><summary>تاریخ‌ها شمسی‌اند؟</summary><p>همه‌چیز فارسی و راست‌به‌چپ است و تاریخ‌ها شمسی نمایش داده می‌شوند. تاریخ و عدد را با رقم فارسی یا انگلیسی بنویسید؛ هر دو پذیرفته می‌شود.</p></details>
-    <details name="faq" data-reveal><summary>اگر سرور خراب شود چه؟</summary><p>هر شب ساعت ۳ یک نسخه‌ی پشتیبان از پایگاه داده گرفته می‌شود و مدیر هر وقت بخواهد یک فایل zip کامل از همه‌ی پرونده‌ها و مدارک دانلود می‌کند. نصب و به‌روزرسانی با راهنمای قدم‌به‌قدم انجام می‌شود.</p></details>
-    <details name="faq" data-reveal><summary>اطلاعات قبلی‌مان را می‌توانیم بیاوریم؟</summary><p>بله. فهرست بیماران را از فایل CSV وارد کنید؛ کد پرونده‌ی قبلی هر بیمار هم می‌تواند همان بماند.</p></details>
+  <h2 id="faq-h" class="sec-h" data-reveal>سؤالایی که معمولاً می‌پرسن</h2>
+  <div class="faq-list" data-reveal>
+    <details name="faq" open><summary>اطلاعات بیمارا کجا می‌مونه؟<svg aria-hidden="true"><use href="#plus"/></svg></summary><p>رو سرور خصوصی خود کلینیک. هر کلینیک نسخه‌ی خودشو داره و اتصال همیشه رمزنگاری‌شده‌ست.</p></details>
+    <details name="faq"><summary>ورودش امنه؟<svg aria-hidden="true"><use href="#plus"/></svg></summary><p>ورود با نام کاربری و رمز حداقل ۱۰ حرفیه. ۵ بار اشتباه بزنن، ۱۵ دقیقه قفل می‌شه. هر کاری هم بشه، ثبت می‌شه.</p></details>
+    <details name="faq"><summary>می‌شه مشخص کنم هر کی چی ببینه؟<svg aria-hidden="true"><use href="#plus"/></svg></summary><p>آره. برای هر نفر جدا تعیین می‌کنید به بیمارا، مدارک، نوبت‌ها، انبار و حساب‌ها دسترسی داره یا نه.</p></details>
+    <details name="faq"><summary>اطلاعات قبلیمونو می‌شه آورد؟<svg aria-hidden="true"><use href="#plus"/></svg></summary><p>آره، فهرست بیمارا رو با یه فایل CSV وارد می‌کنید. کد پرونده‌ها هم می‌تونه همونی که بود بمونه.</p></details>
+    <details name="faq"><summary>اگه سرور خراب شه چی؟<svg aria-hidden="true"><use href="#plus"/></svg></summary><p>هر شب پشتیبان گرفته می‌شه و هر وقت بخواید یه فایل کامل از همه‌ی پرونده‌ها و مدارک دانلود می‌کنید.</p></details>
+    <details name="faq"><summary>پیامکش چطوری کار می‌کنه؟<svg aria-hidden="true"><use href="#plus"/></svg></summary><p>با پنل ایران‌پیامکِ خود کلینیک. متنشو خودتون می‌نویسید و یه روز قبل نوبت می‌ره. تا روشنش نکنید، هیچ پیامکی نمی‌ره.</p></details>
   </div>
 </section>
 
-<!-- 7. Contact -->
+<!-- Contact -->
 <section class="contact" id="contact" aria-labelledby="contact-h">
-  <h2 id="contact-h" class="contact-prompt">klerk را در کلینیک خودتان ببینید.</h2>
-  <p class="contact-prompt contact-prompt-2">نام کلینیک و شماره‌تان را بنویسید.</p>
-  <form class="contact-field" action="mailto:hosseinhoveysi@gmail.com" method="get" data-contact>
-    <label class="sr-only" for="c-msg">نام کلینیک و شماره‌ی تماس</label>
-    <input id="c-msg" name="body" type="text" placeholder="مثلاً کلینیک کلرک، ۰۹۱۲۰۰۰۰۰۰۰" autocomplete="organization" required>
-    <input type="hidden" name="subject" value="درخواست نمایش klerk">
-    <button type="submit" aria-label="فرستادن درخواست"><svg width="22" height="22" aria-hidden="true"><use href="#arrow"/></svg></button>
-  </form>
-  <p class="contact-note">با زدن دکمه، ایمیلی با همین متن برای حسین هویسی آماده می‌شود تا بفرستید.</p>
-  <dl class="contact-rows">
-    <div><dt>ایمیل</dt><dd><a href="mailto:hosseinhoveysi@gmail.com" dir="ltr">hosseinhoveysi@gmail.com</a></dd></div>
-    <div><dt>تلفن</dt><dd><a href="tel:+989165069060" dir="ltr">0916 506 9060</a></dd></div>
-    <div><dt>تلگرام</dt><dd><a href="https://t.me/loeillet" dir="ltr">@loeillet</a></dd></div>
-  </dl>
+  <div class="contact-copy" data-reveal>
+    <h2 id="contact-h">بیاید یه دمو ببینید.</h2>
+    <p>زنگ بزنید یا تو تلگرام پیام بدید؛ یه نسخه‌ی آزمایشی نشونتون می‌دیم.</p>
+  </div>
+  <div class="contact-ways" data-reveal>
+    <a class="way way-main" href="https://t.me/loeillet"><span>پیام تو تلگرام</span><b dir="ltr">@loeillet</b></a>
+    <a class="way" href="tel:+989165069060"><span>زنگ بزنید</span><b dir="ltr">0916 506 9060</b></a>
+    <a class="way" href="mailto:hosseinhoveysi@gmail.com?subject=%D8%AF%D9%85%D9%88%DB%8C%20%DA%A9%D9%84%D8%B1%DA%A9"><span>ایمیل</span><b dir="ltr">hosseinhoveysi@gmail.com</b></a>
+  </div>
 </section>
 
 </main>
 
-<!-- 8. Footer of tiles -->
 <footer class="foot">
-  <div class="tile t-state"><p>klerk برای کلینیک‌های خصوصی کوچک ساخته شده: یک کلینیک، یک سرور، پرونده‌هایی که فقط مال خودش است.</p><small>© ۱۴۰۵ حسین هویسی</small></div>
-  <nav class="tile t-nav" aria-label="بخش‌های صفحه"><ul><li><a href="#visit">ویزیت</a></li><li><a href="#documents">فرم‌ها</a></li><li><a href="#day">یک روز کلینیک</a></li><li><a href="#screens">صفحه‌ها</a></li><li><a href="#faq">پرسش‌ها</a></li></ul></nav>
-  <div class="tile t-time"><p>ایران</p><p class="t-clock" data-tehran>ساعت تهران</p></div>
-  <div class="tile t-mail"><a href="mailto:hosseinhoveysi@gmail.com" dir="ltr">hosseinhoveysi@gmail.com</a></div>
-  <div class="tile t-word" aria-hidden="true">klerk</div>
-  <a class="tile t-cta" href="https://t.me/loeillet"><span>در تلگرام بپرسید</span><svg viewBox="0 0 48 48" width="56" height="56" aria-hidden="true"><path d="M40 24H8M20 12L8 24l12 12" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <p class="foot-word" dir="ltr" aria-hidden="true"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg>KLERK</p>
+  <div class="foot-row">
+    <p><span dir="ltr">KLERK</span> برای کلینیکای خصوصی کوچیک ساخته شده.</p>
+    <small>© ۱۴۰۵ حسین هویسی</small>
+  </div>
 </footer>
 
 </body>
