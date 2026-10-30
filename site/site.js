@@ -36,6 +36,78 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-in-size]').forEach((r) => r.addEventListener('change', () => { state.size = r.value; render(); }));
   render();
 
+  // The terracotta suns (hero stage, contact block) lean toward the pointer and turn their lit side to face it;
+  // a mouse or a finger can grab one and pull it (with growing resistance), and it springs back when let go.
+  // Same behaviour as the sun on the app's sign-in page. Skipped under reduced motion: the suns stay still.
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!still) document.querySelectorAll('.sun').forEach((sun) => {
+    const panel = sun.parentElement;
+    const pos = { x: 0, y: 0 };
+    const vel = { x: 0, y: 0 };
+    const target = { x: 0, y: 0 };
+    let grab = null;
+    let frame = 0;
+    const clamp = (v, max) => Math.max(-max, Math.min(max, v));
+    const band = (d, max) => Math.sign(d) * max * (1 - 1 / (Math.abs(d) / max + 1));
+    const center = () => {
+      const r = sun.getBoundingClientRect();
+      return { x: r.left + r.width / 2 - pos.x, y: r.top + r.height / 2 - pos.y };
+    };
+    const light = (dx, dy) => {
+      const d = Math.hypot(dx, dy) || 1;
+      sun.style.setProperty('--hx', `${50 + (dx / d) * 24}%`);
+      sun.style.setProperty('--hy', `${50 + (dy / d) * 24}%`);
+    };
+    const step = () => {
+      const k = grab ? 0.35 : 0.09;
+      const damping = grab ? 0.55 : 0.82;
+      for (const a of ['x', 'y']) {
+        vel[a] = (vel[a] + (target[a] - pos[a]) * k) * damping;
+        pos[a] += vel[a];
+      }
+      sun.style.translate = `${pos.x.toFixed(2)}px ${pos.y.toFixed(2)}px`;
+      const settled = Math.abs(vel.x) + Math.abs(vel.y) < 0.02 && Math.abs(target.x - pos.x) + Math.abs(target.y - pos.y) < 0.05;
+      frame = settled ? 0 : requestAnimationFrame(step);
+    };
+    const run = () => { if (!frame) frame = requestAnimationFrame(step); };
+    const reach = () => Math.min(220, panel.clientWidth * 0.4); // a phone-sized panel gives a shorter pull
+
+    panel.addEventListener('pointermove', (e) => {
+      const c = center();
+      light(e.clientX - c.x, e.clientY - c.y);
+      if (grab) {
+        target.x = band(e.clientX - grab.x, reach());
+        target.y = band(e.clientY - grab.y, reach());
+      } else if (e.pointerType === 'mouse') {
+        target.x = clamp((e.clientX - c.x) * 0.06, 22);
+        target.y = clamp((e.clientY - c.y) * 0.06, 22);
+      }
+      run();
+    });
+    panel.addEventListener('pointerleave', () => {
+      if (grab) return;
+      target.x = 0; target.y = 0;
+      sun.style.removeProperty('--hx'); sun.style.removeProperty('--hy');
+      run();
+    });
+    sun.addEventListener('pointerdown', (e) => {
+      grab = { x: e.clientX, y: e.clientY };
+      sun.setPointerCapture(e.pointerId);
+      sun.classList.add('is-held');
+      if (e.pointerType === 'touch') navigator.vibrate?.(8); // a tiny tick on phones that support it
+    });
+    const release = () => {
+      if (!grab) return;
+      grab = null;
+      target.x = 0; target.y = 0;
+      sun.classList.remove('is-held');
+      run();
+    };
+    sun.addEventListener('pointerup', release);
+    sun.addEventListener('pointercancel', release);
+    sun.classList.add('is-live');
+  });
+
   // Entrances: each section's parts rise in turn the first time the section comes into view.
   const targets = document.querySelectorAll('[data-reveal]');
   targets.forEach((el) => [...el.children].forEach((c, i) => c.style.setProperty('--i', i)));

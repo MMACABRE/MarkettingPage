@@ -5,9 +5,12 @@
 
 :root {
   --bg: #f6f1e7; --surface: #fcfaf5; --surface-2: #eee8db; --surface-3: #e4dccb;
-  --ink: #1f241f; --ink-2: #545a50;
-  --accent: #376746; --accent-ink: #ffffff; --accent-strong: #265335; --accent-tint: #d4e8cf; --accent-text: #254f35;
-  --deep: #14231a; --deep-2: #1c3324; --deep-ink: #eef1e8; --deep-ink-2: #b7c2b3; --deep-accent: #8fd3a5;
+  --ink: #2a211d; --ink-2: #545a50;
+  --accent: #376746; --accent-ink: #fff1e9; --accent-strong: #265335; --accent-tint: #d4e8cf; --accent-text: #254f35;
+  --deep: #14231a; --deep-2: #1c3324; --deep-ink: #f5ebe1; --deep-ink-2: #b7c2b3; --deep-accent: #8fd3a5;
+  /* terracotta joins the sage, never replaces it: full stops, line tips and a sun behind green surfaces */
+  --terra: #c8664a; --terra-text: #9e4a31; --deep-terra: #e8947a;
+  --terra-light: #e0947a; --terra-deep: #8f3f29; --terra-pale: #fbeee8;
   --radius: 20px; --radius-sm: 12px;
   --m: clamp(16px, 4vw, 56px);             /* the one pair of page margins */
   --gap: clamp(112px, 13vw, 200px);        /* between sections */
@@ -19,9 +22,10 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #0f1713; --surface: #16211b; --surface-2: #1b2821; --surface-3: #24342a;
-    --ink: #eaece3; --ink-2: #aab3a5;
+    --ink: #f0e7dd; --ink-2: #aab3a5;
     --accent: #67b982; --accent-ink: #06150c; --accent-strong: #7ecc96; --accent-tint: #1b3e29; --accent-text: #9ad9ac;
     --deep: #0a110d; --deep-2: #111c15;
+    --terra: #d97a5c; --terra-text: #eda58c; --terra-light: #f0a88f; --terra-deep: #a8533a; --terra-pale: #2a1d17;
   }
 }
 
@@ -57,18 +61,18 @@ section { scroll-margin-top: 24px; }
 /* ---------- Top bar ---------- */
 .bar { display: flex; align-items: center; gap: 28px; padding: 20px var(--m); }
 .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-size: 24px; font-weight: 850; letter-spacing: -.01em; }
-.logo-en { font-size: 13px; font-weight: 700; letter-spacing: .16em; color: var(--ink-2); padding-block-start: 4px; }
+.logo-en { font-size: 13px; font-weight: 700; letter-spacing: .16em; color: var(--terra-text); padding-block-start: 4px; }
 .bar-nav { display: flex; gap: 24px; margin-inline-start: auto; }
 .bar-nav a { text-decoration: none; color: var(--ink-2); font-weight: 600; padding: 8px 2px; transition: color 200ms ease; }
-.bar-nav a:hover { color: var(--ink); }
+.bar-nav a:hover { color: var(--terra-text); }
 
 /* ---------- Hero ---------- */
 .hero { padding: clamp(32px, 5vw, 72px) var(--m) 0; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
 .hero-copy { display: grid; gap: 28px; justify-items: start; }
 .hero h1 { font-size: var(--s-xl); font-weight: 900; line-height: 1.08; letter-spacing: -.025em; }
 .hero h1 { font-size: clamp(40px, 5.6vw, 92px); }
-.hero h1 span { display: block; white-space: nowrap; }
-.hero h1 span + span { color: var(--accent); }
+.hero h1 > span { display: block; white-space: nowrap; }
+.hero h1 > span + span { color: var(--accent); }
 .lead { font-size: var(--s-lead); color: var(--ink-2); max-width: 40ch; text-wrap: pretty; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; }
 /* The mark on the owner's bloom: the same leaf corners as the panel it sits on. */
@@ -141,7 +145,7 @@ section { scroll-margin-top: 24px; }
    sized in em off a font set in container units: the same print size takes a larger share of the smaller sheet,
    as it does on real A5. */
 .slot { --a4w: min(100%, 420px); width: var(--a4w); aspect-ratio: 210 / 297; justify-self: center; display: grid; place-items: start center; }
-.paper { container-type: inline-size; width: 100%; aspect-ratio: 210 / 297; overflow: hidden; display: grid; grid-template-rows: auto auto auto 1fr auto; background: #fff; color: #22302a; border-radius: 4px; transition: width 480ms var(--ease); }
+.paper { container-type: inline-size; width: 100%; aspect-ratio: 210 / 297; overflow: hidden; display: grid; grid-template-rows: auto auto auto 1fr auto; background: #fffaf5; color: #22302a; border-radius: 4px; transition: width 480ms var(--ease); }
 .paper > * { font-size: 3.15cqi; }
 .paper.is-a5 { width: 70.7%; }
 .paper.is-a5 > * { font-size: 4.45cqi; }
@@ -193,11 +197,11 @@ section { scroll-margin-top: 24px; }
 .faq summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 14px 24px; font-size: clamp(18px, 1.5vw, 21px); font-weight: 750; cursor: pointer; list-style: none; }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary svg { flex: none; width: 22px; height: 22px; color: var(--accent); transition: transform 240ms var(--ease); }
-.faq details[open] summary svg { transform: rotate(45deg); }
+.faq details[open] summary svg { transform: rotate(45deg); color: var(--terra); }
 .faq details p { padding: 0 24px 22px; color: var(--ink-2); max-width: 60ch; }
 
 /* ---------- Contact ---------- */
-.contact { margin: var(--gap) var(--m) 0; padding: clamp(48px, 8vw, 120px) clamp(24px, 6vw, 96px); border-radius: var(--radius); background: var(--accent); color: var(--accent-ink); display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.contact { position: relative; overflow: hidden; isolation: isolate; margin: var(--gap) var(--m) 0; padding: clamp(48px, 8vw, 120px) clamp(24px, 6vw, 96px); border-radius: var(--radius); background: var(--accent); color: var(--accent-ink); display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
 .contact h2 { font-size: var(--s-h2); font-weight: 900; line-height: 1.15; letter-spacing: -.02em; }
 .contact-copy { display: grid; gap: 18px; }
 .contact-copy p { font-size: var(--s-lead); max-width: 30ch; opacity: .92; }
@@ -215,7 +219,7 @@ section { scroll-margin-top: 24px; }
 .foot { padding: clamp(64px, 9vw, 140px) var(--m) 32px; display: grid; gap: 24px; }
 .foot-word { display: flex; align-items: center; gap: .16em; font-size: clamp(72px, 18vw, 300px); font-weight: 900; line-height: 1; letter-spacing: -.02em; color: var(--ink); }
 .foot-word .mark { width: .7em; height: .7em; }
-.foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--ink-2); }
+.foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; color: var(--terra-text); }
 
 /* ---------- Motion: parts of each section rise in turn, once ---------- */
 @media (prefers-reduced-motion: no-preference) {
@@ -283,4 +287,44 @@ section { scroll-margin-top: 24px; }
 @media print {
   .js .hero-copy > *, .js .hero-mark, .js [data-reveal] > *, .js .feat .shot { opacity: 1 !important; transform: none !important; animation: none !important; }
   .faq .sec-h { position: static; }
+}
+
+/* ---------- Terracotta touches ---------- */
+.dot { color: var(--terra); }
+.calm .dot { color: var(--deep-terra); }
+.facts li::before { content: ""; width: 44px; height: 3px; border-radius: 2px; background: var(--deep-accent); border-inline-end: 12px solid var(--deep-terra); }
+/* A terracotta sun behind the sage: rising behind the mark on the hero stage, setting in the contact block's corner. */
+.sun { position: absolute; border-radius: 50%; background: var(--terra); pointer-events: none; }
+.hero-stage .sun { z-index: 0; width: 30%; aspect-ratio: 1; inset-block-start: 21%; inset-inline-end: 22%; }
+.hero-mark { position: relative; z-index: 1; }
+.contact .sun { z-index: -1; width: clamp(180px, 24vw, 320px); aspect-ratio: 1; inset-block-end: clamp(-160px, -9vw, -90px); inset-inline-start: clamp(-110px, -5vw, -50px); }
+@media (prefers-reduced-motion: no-preference) {
+  .js .hero-stage .sun { opacity: 0; transform: translateY(60%); animation: rise 1600ms var(--ease) 450ms forwards; }
+}
+/* On a phone the sun peeks out beside the mark, far enough that a thumb can grab it (about 50px of it shows). */
+@media (max-width: 760px) { .hero-stage .sun { width: 100px; inset-block-start: 10%; inset-inline-end: calc(50% - 112px); } }
+/* Warm whites and inks: every white on this page carries a blush of terracotta (buttons, the contact block, the
+   paper, the text on deep green) and the near-black ink an espresso drop of it. An open question's title turns
+   terracotta with its icon. */
+.faq details[open] summary { color: var(--terra-text); }
+
+/* ---------- Terracotta into green ---------- */
+/* The page is right-to-left, so "to left" runs with the reading: green first, warming into terracotta at the end. */
+.hero h1 > span + span { background: linear-gradient(to left, var(--accent) 30%, var(--terra) 115%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero h1 > span + span .dot { color: var(--terra); }
+.foot-word { background: linear-gradient(to right, var(--accent) 10%, var(--accent) 35%, var(--terra-deep) 80%, var(--terra) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.foot-word .mark-tile { fill: var(--accent); }
+.foot-word .dot { color: var(--terra-light); }
+.sun { background: radial-gradient(circle at var(--hx, 32%) var(--hy, 30%), var(--terra-light), var(--terra) 50%, var(--terra-deep) 110%); }
+/* With site.js the suns can be grabbed by mouse or finger; touch-action stops a drag on a sun from scrolling. */
+.sun.is-live { pointer-events: auto; cursor: grab; touch-action: none; -webkit-tap-highlight-color: transparent; transition: scale 220ms var(--ease), box-shadow 220ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .sun.is-live:hover { box-shadow: 0 0 0 12px color-mix(in srgb, var(--terra) 16%, transparent); }
+}
+.sun.is-held { cursor: grabbing; scale: 1.08; box-shadow: 0 0 0 16px color-mix(in srgb, var(--terra) 20%, transparent), 0 20px 44px -14px var(--terra-deep); }
+.contact { background: linear-gradient(200deg, var(--accent) 45%, color-mix(in srgb, var(--accent-strong) 60%, var(--terra-deep)) 115%); }
+.facts li::before { border-inline-end: 0; width: 56px; background: linear-gradient(to left, var(--deep-accent) 30%, var(--deep-terra)); }
+.bill { background: linear-gradient(170deg, var(--surface-2) 55%, color-mix(in srgb, var(--surface-2) 80%, var(--terra-pale))); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:not(.btn-ghost):hover { background: linear-gradient(to left, var(--accent-strong) 40%, color-mix(in srgb, var(--accent-strong) 55%, var(--terra-deep))); }
 }

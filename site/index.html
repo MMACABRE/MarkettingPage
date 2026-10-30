@@ -11,8 +11,8 @@
 <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
 <link rel="preload" href="fonts/Estedad-Variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css">
-<script src="site.js"></script>
+<link rel="stylesheet" href="site.css?v=5">
+<script src="site.js?v=4"></script>
 </head>
 <body>
 
@@ -38,7 +38,7 @@
      further down, one screen at a time. -->
 <section class="hero" aria-labelledby="hero-h">
   <div class="hero-copy" data-reveal>
-    <h1 id="hero-h"><span>کارای کلینیک رو</span> <span>بسپارید به کلرک.</span></h1>
+    <h1 id="hero-h"><span>کارای کلینیک رو</span> <span>بسپارید به کلرک<span class="dot">.</span></span></h1>
     <p class="lead">پرونده، نوبت، صورتحساب، انبار و پیامک؛ همه یه جا، فارسی و با تقویم شمسی.</p>
     <div class="actions">
       <a class="btn" href="#contact">یه دمو می‌خوام</a>
@@ -46,6 +46,7 @@
     </div>
   </div>
   <div class="hero-stage" aria-hidden="true">
+    <span class="sun"></span>
     <img class="art art-bloom" src="img/halftone-bloom.webp" width="1600" height="2133" alt="">
     <svg class="mark hero-mark"><use href="#mark"/></svg>
   </div>
@@ -53,7 +54,7 @@
 
 <!-- What it does: three screens, one line each -->
 <section class="features" id="features" aria-labelledby="features-h">
-  <h2 id="features-h" class="sec-h" data-reveal>هرچی لازم دارید، دمِ دستتونه.</h2>
+  <h2 id="features-h" class="sec-h" data-reveal>هرچی لازم دارید، دمِ دستتونه<span class="dot">.</span></h2>
 
   <article class="feat" data-reveal>
     <div class="feat-text">
@@ -140,7 +141,7 @@
      darkens the whole section with it. Works without the script (CSS :has on the checked radio). -->
 <section class="modes" id="modes" aria-labelledby="modes-h">
   <div class="modes-copy" data-reveal>
-    <h2 id="modes-h" class="sec-h">روشن یا تیره، هر جور راحتید.</h2>
+    <h2 id="modes-h" class="sec-h">روشن یا تیره، هر جور راحتید<span class="dot">.</span></h2>
     <p>هر کسی حالت خودشو انتخاب می‌کنه؛ آخر شب هم چشم خسته نمی‌شه.</p>
     <div class="seg seg-modes" role="radiogroup" aria-label="حالت نمایش">
       <label><input type="radio" name="mode" value="light" checked><span>روشن</span></label>
@@ -157,7 +158,7 @@
 <section class="calm" aria-labelledby="calm-h">
   <img class="art art-checker" src="img/positive-negative.webp" width="1920" height="1080" alt="" aria-hidden="true" loading="lazy">
   <div class="calm-inner">
-    <h2 id="calm-h" class="sec-h" data-reveal>خیالتون راحت باشه.</h2>
+    <h2 id="calm-h" class="sec-h" data-reveal>خیالتون راحت باشه<span class="dot">.</span></h2>
     <ul class="facts" data-reveal>
       <li><b>ساعت ۳ شب</b><span>هر شب خودش از همه‌چی بکاپ می‌گیره.</span></li>
       <li><b>یه روز قبلش</b><span>پیامک یادآوری نوبت برای بیمار می‌ره.</span></li>
@@ -169,7 +170,7 @@
 <!-- Phones -->
 <section class="phones" aria-labelledby="phones-h">
   <div class="phones-copy" data-reveal>
-    <h2 id="phones-h" class="sec-h">رو گوشی هم راحته.</h2>
+    <h2 id="phones-h" class="sec-h">رو گوشی هم راحته<span class="dot">.</span></h2>
     <p>نصب نمی‌خواد. تو مرورگر باز می‌شه و دکمه‌هاش اندازه‌ی انگشته.</p>
   </div>
   <div class="phones-row" data-reveal>
@@ -193,6 +194,7 @@
 
 <!-- Contact -->
 <section class="contact" id="contact" aria-labelledby="contact-h">
+  <span class="sun" aria-hidden="true"></span>
   <div class="contact-copy" data-reveal>
     <h2 id="contact-h">بیاید یه دمو ببینید.</h2>
     <p>زنگ بزنید یا تو تلگرام پیام بدید؛ یه نسخه‌ی آزمایشی نشونتون می‌دیم.</p>
@@ -207,7 +209,7 @@
 </main>
 
 <footer class="foot">
-  <p class="foot-word" dir="ltr" aria-hidden="true"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg>KLERK</p>
+  <p class="foot-word" dir="ltr" aria-hidden="true"><svg class="mark" aria-hidden="true"><use href="#mark"/></svg>KLERK<span class="dot">.</span></p>
   <div class="foot-row">
     <p><span dir="ltr">KLERK</span> برای کلینیکای خصوصی کوچیک ساخته شده.</p>
     <small>© ۱۴۰۵ حسین هویسی</small>
