@@ -105,6 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     sun.addEventListener('pointerup', release);
     sun.addEventListener('pointercancel', release);
+    // Scrolling (wheel, trackpad or a finger) gives the sun a push along the scroll; the same spring bounces it
+    // up and down back to rest. Only while the sun is on screen, and never while it is held.
+    let lastY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const dy = window.scrollY - lastY;
+      lastY = window.scrollY;
+      if (grab || !dy) return;
+      const r = sun.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      vel.y = clamp(vel.y + dy * 0.35, 16);
+      run();
+    }, { passive: true });
     sun.classList.add('is-live');
   });
 

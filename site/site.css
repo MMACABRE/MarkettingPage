@@ -175,8 +175,8 @@ section { scroll-margin-top: 24px; }
 .art-checker { inset: 0 auto 0 0; width: 38%; opacity: .9; }
 .calm-inner { display: grid; gap: clamp(40px, 5vw, 72px); max-width: 62%; }
 /* Each fact is as wide as its words (up to a measure), so the three sit close together instead of in wide equal columns. */
-.facts { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 32px clamp(28px, 3.5vw, 48px); }
-.facts li { max-width: 12.5em; }
+.facts { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 16em)); justify-content: start; gap: clamp(36px, 4vw, 56px) clamp(28px, 3.5vw, 48px); }
+.facts li { max-width: 16em; }
 .facts li { display: grid; gap: 10px; align-content: start; }
 .facts b { font-size: clamp(26px, 2.6vw, 40px); font-weight: 850; line-height: 1.2; color: var(--deep-accent); }
 .facts span { color: var(--deep-ink-2); }
