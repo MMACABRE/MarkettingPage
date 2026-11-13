@@ -5,7 +5,7 @@ static, right-to-left Persian page: plain HTML, CSS and one small script, with n
 database and nothing loaded from other websites. It is separate from the clinic app and holds no patient data.
 
 ```
-site/                the website: index.html, site.css, site.js, img/, fonts/, icons
+site/                the website: index.html, site.css, site.js, intro.css, intro.js, pattern.js, img/, fonts/, icons
 Caddyfile            web server config: HTTPS, security headers, caching
 docker-compose.yml   runs Caddy in Docker and serves site/
 .env.example         copy to .env and set DOMAIN

@@ -1,0 +1,66 @@
+/* The opening sun and the pattern behind the whole page. Colours come from the page's own tokens (site.css). */
+
+/* ---------- Pattern canvas: sits behind everything, shows wherever a section has no fill of its own ---------- */
+.bg-pattern { position: fixed; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+
+/* ---------- Opening sun ---------- */
+html.intro { overflow: hidden; }
+/* The page waits behind the sun, then fades in as the sun leaves. Its own entrances are held until the tap. */
+html.intro .bar, html.intro main, html.intro .foot { opacity: 0; visibility: hidden; }
+html.intro main *, html.intro .bar * { animation-play-state: paused !important; }
+.bar, main, .foot { transition: opacity 900ms var(--ease) 350ms; }
+html.intro-pending .hero-stage .sun { visibility: hidden; opacity: 0; animation: none; transform: none; }
+html.intro-pending.intro-go .hero-stage .sun { visibility: visible; }
+.hero-stage .sun.landed { opacity: 1; animation: none; transform: none; }
+
+.intro-layer {
+  position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; align-content: center; gap: clamp(20px, 4vh, 40px);
+  border: 0; padding: 0; margin: 0; background: transparent; color: var(--ink-2); cursor: pointer; font: inherit;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+.intro-layer:focus-visible { outline: 3px solid var(--accent); outline-offset: -12px; border-radius: 28px; }
+.intro-sun { position: relative; width: min(62vmin, 580px); aspect-ratio: 1; display: block; will-change: transform; }
+.sun-art { width: 100%; height: 100%; overflow: visible; display: block; }
+
+.st-light { stop-color: var(--terra-light); }
+.st-mid { stop-color: var(--terra); }
+.st-deep { stop-color: var(--terra-deep); }
+.sun-art .disc { fill: url(#sunBody); }
+.sun-art .sun-dots-top { fill: var(--terra-deep); opacity: .34; }
+.sun-art .cross { fill: none; stroke: var(--terra-pale); stroke-width: 2.5; stroke-linejoin: miter; opacity: .5; }
+.sun-art .ring { fill: none; stroke: var(--terra); stroke-width: 1.5; opacity: .55; }
+.sun-art .ring-dots { stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0.1 9; opacity: .7; }
+.sun-art .rays path { fill: var(--terra); opacity: .85; }
+.sun-art .rays rect { fill: var(--accent); opacity: .5; }
+.sun-art .rays-long, .sun-art .rays-short, .sun-art .sun-rings { transform-origin: 200px 200px; transform-box: view-box; }
+
+/* Detail drops away as the sun leaves: rays and rings first, the texture and cross a beat later. */
+.sun-art .rays, .sun-art .sun-rings, .sun-art .sun-dots-top, .sun-art .cross { transition: opacity 1300ms ease-in-out 200ms, transform 2000ms ease-in-out; }
+.is-simplifying .rays, .is-simplifying .sun-rings { opacity: 0 !important; }
+.is-simplifying .rays-long { transform: scale(.6) rotate(20deg); }
+.is-simplifying .rays-short { transform: scale(.7) rotate(-20deg); }
+.is-simplifying .sun-dots-top, .is-simplifying .cross { opacity: 0 !important; transition-delay: 700ms; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .intro-sun { animation: sun-breathe 6s ease-in-out infinite; }
+  .intro-layer.is-leaving .intro-sun { animation: none; }
+  .sun-art .rays-long { animation: spin 90s linear infinite; }
+  .sun-art .rays-short { animation: spin 140s linear infinite reverse; }
+  .sun-art .sun-rings { animation: spin 220s linear infinite; }
+  .sun-art .rays-long path { animation: ray 5.5s ease-in-out infinite; }
+  .sun-art .rays-long path:nth-child(even) { animation-delay: -2.7s; }
+  @media (hover: hover) and (pointer: fine) {
+    .intro-sun { transition: scale 400ms var(--ease); }
+    .intro-layer:hover .intro-sun { scale: 1.035; }
+  }
+}
+.intro-layer:active .intro-sun { scale: .985; }
+.intro-layer.is-leaving .intro-sun { scale: 1 !important; transition: none; }
+@keyframes sun-breathe { 50% { transform: scale(1.018); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes ray { 50% { opacity: .5; } }
+
+/* The hero's mark waits for the sun: a copy of it stands above the sun while it orbits, then the real one takes over. */
+html.intro-go:not(.mark-ready) .hero-mark { animation: none !important; opacity: 0 !important; }
+html.mark-ready .hero-mark { animation: none !important; opacity: 1 !important; transform: none !important; }
+.mark-copy { position: fixed; z-index: 2; pointer-events: none; display: block; }
